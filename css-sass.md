@@ -16,6 +16,7 @@ Voyons ensemble les avantages d'utiliser SASS.
 - [Nesting](#nesting)
 - [Functions](#functions)
 - [Mixin](#mixin)
+- [Import/Use](#importuse)
 - [Plugins VSCode](#plugins-vscode)
 
 ## Principe
@@ -199,6 +200,8 @@ La différence semble minime, mais sur un gros projet c'est beaucoup plus simple
 
 Comme en JS, on peut utiliser des fonctions dans Sass. On ne va pas voir toutes les possibilités, mais juste la syntaxe. Ca sera à vous d'allez chercher un peu sur Google et dans la doc selon vos besoins. Nous allons cependant voir une fonction bien spécifique qui vous sera utile avec les maps vue plus haut.
 
+Pour déclarer une fonction on place simplement `@function`suivi du nom de la fonction et du paramètre qu'elle peut recevoir entre parenthèse "**( )**". Ensuite entre accolades "**{ }**" on écrit notre fonction.
+
 ```css
 @function color($color-name) {
   @return map-get($colors, $color-name)
@@ -220,13 +223,95 @@ a{
 }
 ```
 
+Dans cet exemple on demande simplement à notre fonction "**color**" de retourner notre map de couleurs vu plus haut. Ce qui permet ensuite d'écrire plus rapidement les couleurs dont on a besoin.
+
 [:book:Documentation](https://sass-lang.com/documentation/at-rules/function)
 
 [:arrow_up:Revenir au top](#Syntactically-Awesome-Style-Sheet)
 
 ## Mixin
 
+Les mixins peuvent vous permettre d'écrire plus rapidement des bouts de CSS redondant. Un bon exemple, les media queries, lorsque vous devez définir le comportement de vos éléments pour une résolution particulière, à chaque fois vous devez ré-écrire votre media query en entier et lui donner ensuite ses propriétés. Grâce aux mixins, vous allez pouvoir écrire une fois votre media query et l'indiquer plus simplement dans toute votre feuille de style. Voyons cela avec un exemple:
+
+```css
+$desktop: 840px;
+@mixin desktop {
+  @media (min-width: #{$desktop}) {
+    @content;
+  }
+}
+```
+
+Décortiquons l'exemple suivant:
+
+- **@mixin**: détermine que l'on va introduire une mixin, c'est suivi du nom de cette mixin.
+- **@media**: c'est le bout de code que l'on veut répéter grâce à notre mixin, dans ce cas-ci il s'agit d'une media query donc la syntaxe est celle vue dans le cours sur le responsive design.
+- **@content**: c'est un bout de code propre au mixin qui permet d'indiquer qu'ici viendra s'insérer le contenu que l'on va passer via notre mixin.
+
+Voyons maintenant l'utilisation de la mixin pour que ça soit plus claire
+
+```css
+.element{
+  background-color: red;
+  width: 50%;
+
+  @include desktop {
+    background-color: green;
+    width: 100%;
+  }
+}
+```
+
+`@include`permet d'utiliser notre mixin, on ajoute le nom de cette mixin à la suite. Sass va insérer à cet endroit ce qu'on a défini comme étant la syntaxe de la mixin. Ensuite tout ce qui sera contenu à l'intérieur s'ajoutera là où on a définit notre `@content`.
+
+Voici le résultat en CSS
+
+```css
+.element {
+  background-color: red;
+  width: 50%;
+}
+@media (min-width: 840px) {
+  .element {
+    background-color: green;
+    width: 100%;
+  }
+}
+```
+
+Alors oui sur un seul élément on dirait qu'on a pas gagné tant de ligne que ça, mais sur le long terme, c'est beaucoup plus facile à écrire et à entretenir.
+
+Les mixins ont encore pleins d'autres applications possible, je vous laissez découvrir cela par vous même dans le documentation.
+
+[:book:Documentation](https://sass-lang.com/documentation/at-rules/mixin)
+
 [:arrow_up:Revenir au top](#Syntactically-Awesome-Style-Sheet)
+
+## Import/Use
+
+Tout comme en CSS, il est possible d'importer des feuilles des styles. Attention, la syntaxe `@import`est vouée à disparaitre et l'équipe de Sass recommande l'utilisation de `@use`. C'est au final la même chose.
+
+```css
+/* component/_card.scss */
+.card{
+  margin:0
+}
+```
+
+```css
+/* component/_nav.scss */
+nav{
+  background-color: red;
+}
+```
+
+```css
+/* styles.scss */
+@use 'component/card';
+@use 'component/nav';
+```
+
+Dans cet exemple, on a classer certaines feuilles de style dans un dossier `component`pour bien séparer ces styles des autres. Ensuite on "importe" ces deux `.scss` dans la feuille principale `styles.scss`qui sera le fichier surveillé et compilé par Sass. Ainsi on a qu'un fichier à surveiller mais on peut diviser son travail en autant de fichier que nécessaire pour mieux s'organiser.
 
 ## Plugins VSCode
 
