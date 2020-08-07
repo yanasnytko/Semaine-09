@@ -64,11 +64,13 @@ sass --watch ./sass:./css
 
 Cette commande surveillera tous les fichiers dans le dossier "sass" et générera les fichiers dans le dossier "css". On sépare les deux dossiers par un `:`.
 
-![terminal-sass]
+![terminal-sass](images/sass-terminal.png)
 
 > :exclamation::exclamation::exclamation: Quand vous exécutez ces commandes, faites bien attention à où vous vous trouvez. Dans les exemples plus haut je suis à la racine de mon projet. Pensez à utiliser `cd` pour naviguer dans vos dossiers si ce n'est pas votre cas.
 
 Peu importe la méthode utilisée, le fait de surveiller votre fichier `.scss` permet aussi de détecter d'éventuel problème de syntaxe. En effet, si Sass détecte un soucis il ne générera pas le fichier et vous indiquera dans la fenêtre "Output" ou dans le terminal, où se situe le problème. Dans gardez à l'oeil cette fenêtre.
+
+![error-sass](images/error-sass.png)
 
 [:arrow_up:Revenir au top](#Syntactically-Awesome-Style-Sheet)
 
