@@ -9,11 +9,11 @@ Attribuez un numéro au hasard à chaque participant. Celui qui a le numéro 1 v
 ### Etape 1: Initialisation
 
 1. Créer un `repository`sur Githube nommé `Exercice-cadavre-exquis-VotrePrénom`
-2. Créer un fichier `Readme.md`
-3. En [Markdown](https://github.com/sirius-school/Semaine-03/blob/master/theorie-markdown.md) donné un titre à votre histoire
-4. Avec Github Desktop, télécharger une version sur votre ordinateur.
-5. Dans GH Desktop, créez une nouvelle branche `dev`
-6. Publiez cette branche en cliquant sur le bouton `Publish Branch`
+2. Créer un fichier `Readme.md` (cochez "Initialize with Readme.md")
+3. Avec Github Desktop, télécharger une version sur votre ordinateur.
+4. Dans GH Desktop, créez une nouvelle branche `dev`
+5. Publiez cette branche en cliquant sur le bouton `Publish Branch`
+6. En [Markdown](https://github.com/sirius-school/Semaine-03/blob/master/theorie-markdown.md), dans VScode ajoutez un titre à votre histoire
 7. Invitez les autres membres du groupe en tant que `contributors`
 8. Ouvrez le fichier dans VScode et placer 1,2 ou 3 phrases l'une à la suite de l'autre.
 
