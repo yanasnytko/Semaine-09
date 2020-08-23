@@ -11,12 +11,14 @@ Voyons ensemble les avantages d'utiliser SASS.
   - [Installation](#installation)
   - [Utilisation](#utilisation)
   - [Différence entre SCSS et SASS](#différence-entre-scss-et-sass)
+- [Nesting](#nesting)
+  - [Nesting de sélecteurs](#nesting-de-sélecteurs)
 - [Variables](#variables)
 - [Sass Maps](#sass-maps)
-- [Nesting](#nesting)
 - [Functions](#functions)
 - [Mixin](#mixin)
 - [Import/Use](#importuse)
+- [Conclusion](#conclusion)
 - [Plugins VSCode](#plugins-vscode)
 
 ## Principe
@@ -39,7 +41,7 @@ Ensuite on va utiliser un plugin pour VScode pour pouvoir surveiller notre fichi
 
 ### Utilisation
 
-Dans votre projet il suffit de créer un fichier `main.scss` dans un dossier `css`.
+Dans votre projet il suffit de créer un fichier `main.scss` dans un dossier `sass`.
 
 Une fois dans le fihcier Sass, vous pouvez cliquer sur le bouton `Watch Sass`en bas de votre Vscode ![watch-sass](images/watchsass.png)
 
@@ -68,7 +70,7 @@ Cette commande surveillera tous les fichiers dans le dossier "sass" et générer
 
 > :exclamation::exclamation::exclamation: Quand vous exécutez ces commandes, faites bien attention à où vous vous trouvez. Dans les exemples plus haut je suis à la racine de mon projet. Pensez à utiliser `cd` pour naviguer dans vos dossiers si ce n'est pas votre cas.
 
-Peu importe la méthode utilisée, le fait de surveiller votre fichier `.scss` permet aussi de détecter d'éventuel problème de syntaxe. En effet, si Sass détecte un soucis il ne générera pas le fichier et vous indiquera dans la fenêtre "Output" ou dans le terminal, où se situe le problème. Dans gardez à l'oeil cette fenêtre.
+Peu importe la méthode utilisée, le fait de surveiller votre fichier `.scss` permet aussi de détecter d'éventuel problème de syntaxe. En effet, si Sass détecte un soucis il ne générera pas le fichier et vous indiquera dans la fenêtre "Output" ou dans le terminal, où se situe le problème. Donc gardez à l'oeil cette fenêtre.
 
 ![error-sass](images/error-sass.png)
 
@@ -118,6 +120,65 @@ Je vous conseille d'utiliser `.scss` si vous avez encore quelques difficultés a
 
 [:arrow_up:Revenir au top](#Syntactically-Awesome-Style-Sheet)
 
+## Nesting
+
+Il est possible d'utiliser l'imbrication, c'est à dire placer un sélecteur dans un autre. Cela est plus facile quand on code, plus lisible et plus facilement maintenable. Tout est une question d'organisation.
+
+```css
+body{
+  font-family: $font;
+  margin: 0;
+  
+  #container{
+    width: 50%;
+    background-color: $primary;
+  }
+}
+```
+
+Ce bout de code revient à écrire ceci en Css normal:
+
+```css
+body {
+  font-family: Verdana, sans-serif;
+  margin: 0;
+}
+body #container {
+  width: 50%;
+  background-color: red;
+}
+```
+
+La différence semble minime, mais sur un gros projet c'est beaucoup plus simple pour s'organiser.
+
+Vous vous souvenez de quand on a vu BEM et ABEM, je vous avais dit que ça serrait plus simple quand on utilisera SASS... Et bien le moment est venu!
+
+### Nesting de sélecteurs
+
+Il est également possible d'utiliser le nesting intelligement avec vos sélecteurs.
+
+```css
+/* Sass */
+.alert, .warning {
+  ul, p {
+    margin-right: 0;
+    margin-left: 0;
+    padding-bottom: 0;
+  }
+}
+```
+
+```css
+/* CSS */
+.alert ul, .alert p, .warning ul, .warning p {
+  margin-right: 0;
+  margin-left: 0;
+  padding-bottom: 0;
+}
+```
+
+[:arrow_up:Revenir au top](#Syntactically-Awesome-Style-Sheet)
+
 ## Variables
 
 Vous trouviez que les variables en CSS étaient un peu fastidieuses à écrire? Et bien voici encore une bonne raison d'utiliser Sass. Il faut savoir que l'introduction des variables en CSS est plus récente que celle de Sass, avant Sass il n'y avait pas moyen d'en créer. 
@@ -160,41 +221,6 @@ a{
 ```
 
 Il faut donc déclarer une variable qui sera notre map, ensuite on place des parenthèses `( )`et à l'intérieur on déclare nos clés qu'on sépare avec des virgules. Ensuite pour récupérer ces propriétés, il suffit de placer un `map-get` de préciser dans quel map il doit allez et ensuite on place l'argument, c'est à dire notre clé que l'on veut utiliser.
-
-[:arrow_up:Revenir au top](#Syntactically-Awesome-Style-Sheet)
-
-## Nesting
-
-Il est également possible d'utiliser l'imbrication, c'est à dire placer un sélecteur dans un autre. Cela est plus facile quand on code, plus lisible et plus facilement maintenable. Tout est une question d'organisation.
-
-```css
-body{
-  font-family: $font;
-  margin: 0;
-  
-  #container{
-    width: 50%;
-    background-color: $primary;
-  }
-}
-```
-
-Ce bout de code revient à écrire ceci en Css normal:
-
-```css
-body {
-  font-family: Verdana, sans-serif;
-  margin: 0;
-}
-body #container {
-  width: 50%;
-  background-color: red;
-}
-```
-
-La différence semble minime, mais sur un gros projet c'est beaucoup plus simple pour s'organiser.
-
-!!!!!!!! Rappellez le nesting intérêt BEM ABEM !!!!!!!!!!!!!!
 
 [:arrow_up:Revenir au top](#Syntactically-Awesome-Style-Sheet)
 
@@ -285,6 +311,21 @@ Alors oui sur un seul élément on dirait qu'on a pas gagné tant de ligne que �
 
 Les mixins ont encore pleins d'autres applications possible, je vous laissez découvrir cela par vous même dans le documentation.
 
+Mais comme je suis sympa, voici encore un exemple rapide.
+
+```css
+@mixin reset-m-p{
+  margin: 0;
+  padding: 0;
+}
+
+body{
+  @include reset-m-p
+}
+```
+
+Ce petit bout de mixin va vous permettre de réinitialiser vos margin et padding rapidement sur tous les éléments que vous voulez.
+
 [:book:Documentation](https://sass-lang.com/documentation/at-rules/mixin)
 
 [:arrow_up:Revenir au top](#Syntactically-Awesome-Style-Sheet)
@@ -314,6 +355,10 @@ nav{
 ```
 
 Dans cet exemple, on a classer certaines feuilles de style dans un dossier `component`pour bien séparer ces styles des autres. Ensuite on "importe" ces deux `.scss` dans la feuille principale `styles.scss`qui sera le fichier surveillé et compilé par Sass. Ainsi on a qu'un fichier à surveiller mais on peut diviser son travail en autant de fichier que nécessaire pour mieux s'organiser.
+
+## Conclusion
+
+Il y a énormément de fonctionnalités avancés avec SASS, la plupart ont une utilisation très spécifique, on ne va pas tout voir ici, mais c'est à vous de lire la documentation une fois que vous aurez fais vos premiers pas de Sass pour découvrir de nouvelles fonctionnalités et voir ce que vous pouvez appliquer à vos projets.
 
 ## Plugins VSCode
 

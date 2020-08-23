@@ -21,8 +21,8 @@ Un autre avantage, évident, c'est la facilité d'éffectuer des modifications s
 On déclare une variable en indiquant deux tirets devant son nom. Ensuite il faut utiliser la valeur `var(nom-de-variable)`.
 
 ```css
-element {
-  --main-bg-color: brown;
+:root {
+  --main-bg-color: red;
 }
 element {
   background-color: var(--main-bg-color);
@@ -58,13 +58,15 @@ Il suffit de placer **au dessus de toute autre règle/sélecteur** votre `@impor
 ## Contexte de Formatage de Blocs
 
 > Un contexte de formatage de blocs (block formatting context) est une partie du rendu visuel par le CSS, d'une page web. C'est la région qui délimite la mise en page des blocs et dans laquelle les éléments flottant interagissent les uns avec les autres.
-> 
+>
 > *- MDN Web Docs*
 
 En d'autre termes, il s'agit de définir comments les éléments interagissent entre eux. Quand on a une élément en `float`, l'élément qui vient se placer à côté de lui se place aussi en dessous de celui-ci car il fait partie du même contexte, du même environnement. Si vous voulez "casser" cela, il faut par exemple utiliser une propriété telle que `overflow:hidden`. Consultez l'exemple suivante pour mieux comprendre ce dont je vous parles:
 
-[Un exemple](https://codepen.io/pen/?&editable=true=https%3A%2F%2Fdeveloper.mozilla.org%2Fen-US%2Fdocs%2FWeb%2FGuide%2FCSS%2FBlock_formatting_context) vaut plus qu'une longue théorie.
+[Un exemple](https://codepen.io/scalajeremy/pen/ExKNwZp) vaut plus qu'une longue théorie.
 
-:book: Plus d'infos: [MDN :us:](https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Block_formatting_context) | [MDN :fr:](https://developer.mozilla.org/fr/docs/Web/CSS/Block_formatting_context) | [Video :us:](https://youtu.be/h3XH3yTWiK8)
+> :book: Plus d'infos: [MDN :us:](https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Block_formatting_context) | [MDN :fr:](https://developer.mozilla.org/fr/docs/Web/CSS/Block_formatting_context) | [Video :us:](https://youtu.be/h3XH3yTWiK8)
+>
+> [:video_camera: Une vidéo](https://youtu.be/x_i2gga-sYg) qui reprend le principe du contexte de formatage des blocs en parlant des inline, block et inline-block 
 
 [:arrow_up:Revenir au top](#CSS-advanced)
