@@ -1,0 +1,30 @@
+$hover: bold;
+
+@function color($color-name) {
+  @return map-get($colors, $color-name)
+}
+
+$colors: (
+  bg-color: blue,
+  text: white,
+  alert: red
+);
+
+body {
+  background-color: map-get($colors, bg-color);
+  font-size: 24px;
+  color: map-get($colors, text);
+}
+
+a {
+  color: color(alert);
+  text-decoration: none;
+
+  &:hover {
+    font-weight: $hover;
+  }
+}
+
+/* a:hover {
+  font-weight: $hover;
+} */

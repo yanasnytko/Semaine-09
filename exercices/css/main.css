@@ -1,0 +1,19 @@
+body {
+  background-color: blue;
+  font-size: 24px;
+  color: white;
+}
+
+a {
+  color: red;
+  text-decoration: none;
+}
+a:hover {
+  font-weight: bold;
+}
+
+/* a:hover {
+  font-weight: $hover;
+} */
+
+/*# sourceMappingURL=main.css.map */
