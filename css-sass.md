@@ -259,72 +259,38 @@ Dans cet exemple on demande simplement à notre fonction "**color**" de retourne
 
 ## Mixin
 
-Les mixins peuvent vous permettre d'écrire plus rapidement des bouts de CSS redondant. Un bon exemple, les media queries, lorsque vous devez définir le comportement de vos éléments pour une résolution particulière, à chaque fois vous devez ré-écrire votre media query en entier et lui donner ensuite ses propriétés. Grâce aux mixins, vous allez pouvoir écrire une fois votre media query et l'indiquer plus simplement dans toute votre feuille de style. Voyons cela avec un exemple:
+Les mixins peuvent vous permettre d'écrire plus rapidement des bouts de style CSS redondant.
 
 ```css
-$desktop: 840px;
-@mixin desktop {
-  @media (min-width: #{$desktop}) {
-    @content;
+@mixin reset-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@mixin horizontal-list {
+  @include reset-list;
+
+  li {
+    display: inline-block;
+    margin: {
+      left: -2px;
+      right: 2em;
+    }
   }
+}
+
+nav ul {
+  @include horizontal-list;
 }
 ```
 
 Décortiquons l'exemple suivant:
 
-- **@mixin**: détermine que l'on va introduire une mixin, c'est suivi du nom de cette mixin.
-- **@media**: c'est le bout de code que l'on veut répéter grâce à notre mixin, dans ce cas-ci il s'agit d'une media query donc la syntaxe est celle vue dans le cours sur le responsive design.
-- **@content**: c'est un bout de code propre au mixin qui permet d'indiquer qu'ici viendra s'insérer le contenu que l'on va passer via notre mixin.
+- **@mixin**: détermine que l'on va introduire une mixin, c'est suivi du nom de cette mixin. A l'intérieur des accolades on indique le bout de code que l'ont veut pouvoir ré-utiliser
+- **@include**: incorpore une autre mixin.
 
-Voyons maintenant l'utilisation de la mixin pour que ça soit plus claire
-
-```css
-.element{
-  background-color: red;
-  width: 50%;
-
-  @include desktop {
-    background-color: green;
-    width: 100%;
-  }
-}
-```
-
-`@include`permet d'utiliser notre mixin, on ajoute le nom de cette mixin à la suite. Sass va insérer à cet endroit ce qu'on a défini comme étant la syntaxe de la mixin. Ensuite tout ce qui sera contenu à l'intérieur s'ajoutera là où on a définit notre `@content`.
-
-Voici le résultat en CSS
-
-```css
-.element {
-  background-color: red;
-  width: 50%;
-}
-@media (min-width: 840px) {
-  .element {
-    background-color: green;
-    width: 100%;
-  }
-}
-```
-
-Alors oui sur un seul élément on dirait qu'on a pas gagné tant de ligne que ça, mais sur le long terme, c'est beaucoup plus facile à écrire et à entretenir.
-
-Les mixins ont encore pleins d'autres applications possible, je vous laissez découvrir cela par vous même dans le documentation.
-
-Mais comme je suis sympa, voici encore un exemple rapide.
-
-```css
-@mixin reset-m-p{
-  margin: 0;
-  padding: 0;
-}
-
-body{
-  @include reset-m-p
-}
-```
-
-Ce petit bout de mixin va vous permettre de réinitialiser vos margin et padding rapidement sur tous les éléments que vous voulez.
+Dans cet exemple on a créer d'abord une mixin qui permet de remettre à zéro les margin, padding et le style des listes. Ensuite on a une nouvelle mixin qui va utiliser la mixin de "reset" mais qui va préciser le comportement d'une liste horizontale. Mais du coup on pourrait utiliser les propriétés de la mixin de reset pour également remettre à zéro une autre mixin pour un autre style de liste. 
 
 [:book:Documentation](https://sass-lang.com/documentation/at-rules/mixin)
 
@@ -332,7 +298,7 @@ Ce petit bout de mixin va vous permettre de réinitialiser vos margin et padding
 
 ## Import/Use
 
-Tout comme en CSS, il est possible d'importer des feuilles des styles. Attention, la syntaxe `@import`est vouée à disparaitre et l'équipe de Sass recommande l'utilisation de `@use`. C'est au final la même chose.
+Tout comme en CSS, il est possible d'importer des feuilles des styles. On utilise `@import`
 
 ```css
 /* component/_card.scss */
@@ -350,8 +316,8 @@ nav{
 
 ```css
 /* styles.scss */
-@use 'component/card';
-@use 'component/nav';
+@import 'component/card';
+@import 'component/nav';
 ```
 
 Dans cet exemple, on a classer certaines feuilles de style dans un dossier `component`pour bien séparer ces styles des autres. Ensuite on "importe" ces deux `.scss` dans la feuille principale `styles.scss`qui sera le fichier surveillé et compilé par Sass. Ainsi on a qu'un fichier à surveiller mais on peut diviser son travail en autant de fichier que nécessaire pour mieux s'organiser.
